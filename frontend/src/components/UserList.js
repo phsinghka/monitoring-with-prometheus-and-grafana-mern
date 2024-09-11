@@ -9,7 +9,7 @@ const UserList = () => {
   // Fetch users
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users`);
       setUsers(data);
     };
 
@@ -20,7 +20,7 @@ const UserList = () => {
   const addUser = async () => {
     try {
       const newUser = { name, email };
-      const { data } = await axios.post('/api/users', newUser);
+      const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, newUser);
       setUsers([...users, data]);  // Update the users list
       setName('');  // Clear input fields after adding
       setEmail('');
