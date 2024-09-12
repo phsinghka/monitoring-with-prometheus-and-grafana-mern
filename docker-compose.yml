@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongo:
     image: mongo
@@ -12,6 +10,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - monitoring
 
   backend:
     build:
@@ -25,6 +25,8 @@ services:
       - mongo
     ports:
       - "5000:5000"
+    networks:
+      - monitoring
 
   frontend:
     build:
@@ -33,9 +35,13 @@ services:
     container_name: mern-frontend
     restart: always
     ports:
-      - "3000:80"
+      - "3001:80"
     depends_on:
       - backend
+    networks:
+      - monitoring
 
 volumes:
   mongo-data:
+networks:
+  monitoring:
